@@ -1,3 +1,4 @@
+import queue
 import random, unittest
 __author__ = 'michalfrystacky'
 
@@ -15,6 +16,35 @@ class Dice:
             results[i] = random.randint(1, Dice.dice_faces)
         return results
 
+class Player:
+
+    def __init__(self, ai=None):
+        self.score = 0
+
+    def play_turn(self, dice_result):
+        pass
+
+class Farkle:
+
+    def __init__(self, players=2):
+        if players < 2:
+            raise Exception('Too few players playing!')
+        self.total_players = players
+        # TODO: Better way to define players so that the game can be played
+        self.player_queue = queue.Queue()
+        for _ in self.total_players:
+            self.player_queue.put(Player())
+        self.dice = Dice()
+
+    def play_turn(self):
+        player = self.player_queue.get()
+        roll = self.dice.roll_dice()
+        player.play_turn()
+
+    @staticmethod
+    def check_farkle(dice_roll):
+        # TODO: check if there are no moves left
+        pass
 
 class TestDice(unittest.TestCase):
 
