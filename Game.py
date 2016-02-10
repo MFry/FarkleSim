@@ -1,6 +1,6 @@
 import queue
 import random, unittest
-__author__ = 'michalfrystacky'
+__author__ = 'michal frystacky'
 
 
 class Dice:
@@ -44,7 +44,14 @@ class Farkle:
     @staticmethod
     def check_farkle(dice_roll):
         # TODO: check if there are no moves left
-        pass
+        def check_basic(dice_roll):
+            for dice_result in dice_roll:
+                if dice_result == 5 or dice result == 1:
+                    return True;
+        def check_straight(dice_roll):
+            pass
+        def check_4_of_a_kind(dice_roll):
+            pass
 
 class TestDice(unittest.TestCase):
 
