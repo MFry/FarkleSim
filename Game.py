@@ -44,15 +44,21 @@ class Farkle:
     @staticmethod
     def check_farkle(dice_roll):
         # TODO: check if there are no moves left
-        def check_basic(dice_roll):
-            for dice_result in dice_roll:
-                if dice_result == 5 or dice result == 1:
-                    return True;
+        def check_6_of_a_kind(dice_roll):
+            check = dice_roll[0]
+            for dice in dice_roll[1:]
+                if check != dice:
+                    return False
+            return True    
         def check_straight(dice_roll):
             pass
         def check_4_of_a_kind(dice_roll):
             pass
-
+        def check_basic(dice_roll):
+            for dice_result in dice_roll:
+                if dice_result == 5 or dice result == 1:
+                    return True;
+            return False;
 class TestDice(unittest.TestCase):
 
     def test_roll_dice(self):
