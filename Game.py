@@ -49,9 +49,27 @@ class Farkle:
             for dice in dice_roll[1:]
                 if check != dice:
                     return False
-            return True    
+            return True
+
         def check_straight(dice_roll):
-            pass
+            straight = False * len(dice_roll)
+            for dice in dice_roll:
+                if straight[dice]:
+                    return False
+                else:
+                    straight[dice] = True
+        def check_n_of_a_kind(dice_roll):
+            result_rolls = 0 * Dice.dice_faces
+            for dice in dice_roll:
+                result_rolls[dice] += 1
+            for roll_count in result_rolls:
+                if roll_count == 6:
+                    return True
+                elif roll_count == 5:
+                    return True
+                elif roll_count == 4:
+                    return True
+            #TODO: Check for combination of pairs and others
         def check_4_of_a_kind(dice_roll):
             pass
         def check_basic(dice_roll):
