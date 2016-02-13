@@ -44,20 +44,6 @@ class Farkle:
     @staticmethod
     def check_farkle(dice_roll):
         # TODO: check if there are no moves left
-        def check_6_of_a_kind(dice_roll):
-            check = dice_roll[0]
-            for dice in dice_roll[1:]
-                if check != dice:
-                    return False
-            return True
-
-        def check_straight(dice_roll):
-            straight = False * len(dice_roll)
-            for dice in dice_roll:
-                if straight[dice]:
-                    return False
-                else:
-                    straight[dice] = True
         def check_for_valid_roll(dice_roll):
             result_rolls = 0 * Dice.dice_faces
             for dice in dice_roll:
@@ -74,7 +60,7 @@ class Farkle:
             for roll_count in result_rolls:
                 if roll_count != 1:
                     break
-            
+            #TODO: Check for 3 pairs and two triplets
             return False
                 
             #TODO: Check for combination of pairs and others
@@ -97,3 +83,19 @@ class TestDice(unittest.TestCase):
                 dice_stats[roll-1] += 1
         for result in dice_stats:
             self.assertAlmostEquals(result/float(total_tests*6), 1.0/6.0, 2)
+'''
+        def check_6_of_a_kind(dice_roll):
+            check = dice_roll[0]
+            for dice in dice_roll[1:]
+                if check != dice:
+                    return False
+            return True
+
+        def check_straight(dice_roll):
+            straight = False * len(dice_roll)
+            for dice in dice_roll:
+                if straight[dice]:
+                    return False
+                else:
+                    straight[dice] = True
+'''
