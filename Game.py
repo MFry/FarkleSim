@@ -25,6 +25,8 @@ class Player:
         pass
 
 class Farkle:
+    basic_100 = 0
+    basic_50 = 4
 
     def __init__(self, players=2):
         if players < 2:
@@ -42,26 +44,35 @@ class Farkle:
         player.play_turn()
 
     @staticmethod
-    def check_farkle(dice_roll):
-        # TODO: check if there are no moves left
-        def check_for_valid_roll(dice_roll):
-            result_rolls = 0 * Dice.dice_faces
-            for dice in dice_roll:
-                result_rolls[dice] += 1
-            #Check for n of a kind
-            for roll_count in result_rolls:
-                if roll_count == 6:
-                    return True
-                elif roll_count == 5:
-                    return True
-                elif roll_count == 4:
-                    return True
-            # Check for a straight
-            for roll_count in result_rolls:
-                if roll_count != 1:
-                    break
-            #TODO: Check for 3 pairs and two triplets
-            return False
+    def check__roll(dice_roll):
+        # TODO: Figure out what's the best way to return the most information to avoid wasting additional processing
+        result_rolls = 0 * Dice.dice_faces
+        for dice in dice_roll:
+            result_rolls[dice] += 1
+        # Check for n of a kind
+        pairs = 0
+        triplets = 0
+        for roll_count in result_rolls:
+            if roll_count == 6:
+                return True
+            elif roll_count == 5:
+                return True
+            elif roll_count == 4:
+                return True
+            # Check for triplets
+            elif roll_count == 3:
+                triplets += 1
+            # Check for pairs
+            elif roll_count == 2:
+                pairs += 1
+        if roll_count[Farkle.basic_100] or roll_count[Farkle.basic_50]:
+            return True
+        # Check for a straight
+        for roll_count in result_rolls:
+            if roll_count != 1:
+                break
+
+        return False
 
 class TestDice(unittest.TestCase):
 
