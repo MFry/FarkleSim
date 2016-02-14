@@ -42,26 +42,25 @@ class Farkle:
         player.play_turn()
 
     @staticmethod
-    def check_farkle(dice_roll):
-        # TODO: check if there are no moves left
-        def check_for_valid_roll(dice_roll):
-            result_rolls = 0 * Dice.dice_faces
-            for dice in dice_roll:
-                result_rolls[dice] += 1
-            #Check for n of a kind
-            for roll_count in result_rolls:
-                if roll_count == 6:
-                    return True
-                elif roll_count == 5:
-                    return True
-                elif roll_count == 4:
-                    return True
-            # Check for a straight
-            for roll_count in result_rolls:
-                if roll_count != 1:
-                    break
-            #TODO: Check for 3 pairs and two triplets
-            return False
+    def check__roll(dice_roll):
+        # TODO: Figure out what's the best way to return the most information to avoid wasting additional processing
+        result_rolls = 0 * Dice.dice_faces
+        for dice in dice_roll:
+            result_rolls[dice] += 1
+        # Check for n of a kind
+        for roll_count in result_rolls:
+            if roll_count == 6:
+                return True
+            elif roll_count == 5:
+                return True
+            elif roll_count == 4:
+                return True
+        # Check for a straight
+        for roll_count in result_rolls:
+            if roll_count != 1:
+                break
+        # TODO: Check for 3 pairs and two triplets
+        return False
 
 class TestDice(unittest.TestCase):
 
