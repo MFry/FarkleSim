@@ -62,15 +62,7 @@ class Farkle:
                     break
             #TODO: Check for 3 pairs and two triplets
             return False
-                
-            #TODO: Check for combination of pairs and others
-        def check_4_of_a_kind(dice_roll):
-            pass
-        def check_basic(dice_roll):
-            for dice_result in dice_roll:
-                if dice_result == 5 or dice result == 1:
-                    return True;
-            return False;
+
 class TestDice(unittest.TestCase):
 
     def test_roll_dice(self):
@@ -98,4 +90,12 @@ class TestDice(unittest.TestCase):
                     return False
                 else:
                     straight[dice] = True
+
+        def check_4_of_a_kind(dice_roll):
+            pass
+        def check_basic(dice_roll):
+            for dice_result in dice_roll:
+                if dice_result == 5 or dice_result == 1:
+                    return True;
+            return False;
 '''
