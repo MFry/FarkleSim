@@ -67,11 +67,6 @@ class Farkle:
                 pairs += 1
         if roll_count[Farkle.basic_100] or roll_count[Farkle.basic_50]:
             return True
-        # Check for a straight
-        for roll_count in result_rolls:
-            if roll_count != 1:
-                break
-
         return False
 
 class TestDice(unittest.TestCase):
