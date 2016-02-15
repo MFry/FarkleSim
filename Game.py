@@ -49,6 +49,7 @@ class Farkle:
         result_rolls = 0 * Dice.dice_faces
         for dice in dice_roll:
             result_rolls[dice] += 1
+        # TODO: Sort by largest number of points first to least points
         # Check for n of a kind
         pairs = 0
         triplets = 0
@@ -65,6 +66,12 @@ class Farkle:
             # Check for pairs
             elif roll_count == 2:
                 pairs += 1
+        for i, roll_count in enumerate(result_rolls):
+            if i == len(result_rolls) - 1 and roll_count == 1:
+                return True
+            elif roll_count == 1:
+                continue
+        # Check for non combination valid moves
         if roll_count[Farkle.basic_100] or roll_count[Farkle.basic_50]:
             return True
         return False
