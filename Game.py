@@ -4,10 +4,12 @@ __author__ = 'michal frystacky'
 
 
 class Dice:
+    total_dice = 6
     dice_faces = 6
 
     def __init__(self):
         self.dice_faces = 6
+        # TODO: Generalize dice rolls
 
     @staticmethod
     def roll_dice(total_dice=6):
@@ -23,6 +25,7 @@ class Player:
 
     def play_turn(self, dice_result):
         pass
+
 
 class Farkle:
     basic_100 = 0
@@ -44,11 +47,11 @@ class Farkle:
         player.play_turn()
 
     @staticmethod
-    def check__roll(dice_roll):
+    def check_roll(dice_roll):
         # TODO: Figure out what's the best way to return the most information to avoid wasting additional processing
-        result_rolls = 0 * Dice.dice_faces
+        result_rolls = [0 * Dice.dice_faces]
         for dice in dice_roll:
-            result_rolls[dice] += 1
+            result_rolls[dice-1] += 1
         # TODO: Sort by largest number of points first to least points
         # Check for n of a kind
         pairs = 0
@@ -88,6 +91,10 @@ class TestDice(unittest.TestCase):
                 dice_stats[roll-1] += 1
         for result in dice_stats:
             self.assertAlmostEquals(result/float(total_tests*6), 1.0/6.0, 2)
+
+    def test_check_rolls(self):
+        straight = [1,2,3,4,5,6]
+        self.assertTrue(Farkle.check_roll(straight))
 '''
         def check_6_of_a_kind(dice_roll):
             check = dice_roll[0]
