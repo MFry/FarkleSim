@@ -95,6 +95,11 @@ class TestDice(unittest.TestCase):
     def test_check_rolls(self):
         straight = [1,2,3,4,5,6]
         self.assertTrue(Farkle.check_roll(straight))
+        six_of_a_kind = [random.randint(1, Dice.dice_faces) * 6]
+        self.assertTrue(Farkle.check_roll(six_of_a_kind))
+        five_of_a_kind = [random.randint(1, Dice.dice_faces) * 5]
+        five_of_a_kind.append(random.randint(1, Dice.dice_faces))
+        self.assertTrue(Farkle.check_rolls(five_of_a_kind))
 '''
         def check_6_of_a_kind(dice_roll):
             check = dice_roll[0]
