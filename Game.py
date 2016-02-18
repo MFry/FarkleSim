@@ -37,7 +37,7 @@ class Farkle:
         self.total_players = players
         # TODO: Better way to define players so that the game can be played
         self.player_queue = queue.Queue()
-        for _ in self.total_players:
+        for _ in range(self.total_players):
             self.player_queue.put(Player())
         self.dice = Dice()
 
@@ -97,8 +97,7 @@ class TestDice(unittest.TestCase):
         self.assertTrue(Farkle.check_roll(straight))
         six_of_a_kind = [random.randint(1, Dice.dice_faces) * 6]
         self.assertTrue(Farkle.check_roll(six_of_a_kind))
-        five_of_a_kind = [random.randint(1, Dice.dice_faces) * 5]
-        five_of_a_kind.append(random.randint(1, Dice.dice_faces))
+        five_of_a_kind = [random.randint(1, Dice.dice_faces) * 5, random.randint(1, Dice.dice_faces)]
         self.assertTrue(Farkle.check_rolls(five_of_a_kind))
 '''
         def check_6_of_a_kind(dice_roll):
