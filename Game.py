@@ -49,7 +49,7 @@ class Farkle:
     @staticmethod
     def check_roll(dice_roll):
         # TODO: Figure out what's the best way to return the most information to avoid wasting additional processing
-        result_rolls = [0 * Dice.dice_faces]
+        result_rolls = [0] * Dice.dice_faces
         for dice in dice_roll:
             result_rolls[dice-1] += 1
         # TODO: Sort by largest number of points first to least points
@@ -95,10 +95,12 @@ class TestDice(unittest.TestCase):
     def test_check_rolls(self):
         straight = [1,2,3,4,5,6]
         self.assertTrue(Farkle.check_roll(straight))
-        six_of_a_kind = [random.randint(1, Dice.dice_faces) * 6]
+        six_of_a_kind = [random.randint(1, Dice.dice_faces)] * 6
         self.assertTrue(Farkle.check_roll(six_of_a_kind))
-        five_of_a_kind = [random.randint(1, Dice.dice_faces) * 5, random.randint(1, Dice.dice_faces)]
-        self.assertTrue(Farkle.check_rolls(five_of_a_kind))
+        five_of_a_kind = [random.randint(1, Dice.dice_faces)] * 5 + [random.randint(1, Dice.dice_faces)]
+        self.assertTrue(Farkle.check_roll(five_of_a_kind))
+        four_of_a_kind = [random.randint(1, Dice.dice_faces)] + [random.randint(1, Dice.dice_faces)] +[random.randint(1, Dice.dice_faces)] * 4
+        self.assertTrue(Farkle.check_roll(four_of_a_kind))
 '''
         def check_6_of_a_kind(dice_roll):
             check = dice_roll[0]
