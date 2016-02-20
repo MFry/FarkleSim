@@ -66,16 +66,20 @@ class Farkle:
             # Check for triplets
             elif roll_count == 3:
                 triplets += 1
+                if triplets == 2: # TODO: Find a better way to check for this
+                    return True
             # Check for pairs
             elif roll_count == 2:
                 pairs += 1
+                if pairs == 3:
+                    return True
         for i, roll_count in enumerate(result_rolls):
             if i == len(result_rolls) - 1 and roll_count == 1:
                 return True
             elif roll_count == 1:
                 continue
         # Check for non combination valid moves
-        if roll_count[Farkle.basic_100] or roll_count[Farkle.basic_50]:
+        if result_rolls[Farkle.basic_100] or result_rolls[Farkle.basic_50]:
             return True
         return False
 
@@ -101,6 +105,10 @@ class TestDice(unittest.TestCase):
         self.assertTrue(Farkle.check_roll(five_of_a_kind))
         four_of_a_kind = [random.randint(1, Dice.dice_faces)] + [random.randint(1, Dice.dice_faces)] +[random.randint(1, Dice.dice_faces)] * 4
         self.assertTrue(Farkle.check_roll(four_of_a_kind))
+        two_three_of_a_kind = [random.randint(1, Dice.dice_faces)]*3 + [random.randint(1, Dice.dice_faces)]*3
+        self.assertTrue(Farkle.check_roll(two_three_of_a_kind))
+        three_pairs = [random.randint(1, Dice.dice_faces)]*2 + [random.randint(1, Dice.dice_faces)]*2 + [random.randint(1, Dice.dice_faces)]*2
+        self.assertTrue(three_pairs)
 '''
         def check_6_of_a_kind(dice_roll):
             check = dice_roll[0]
