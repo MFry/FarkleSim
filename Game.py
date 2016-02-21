@@ -1,5 +1,6 @@
 import queue
 import random, unittest
+
 __author__ = 'michal frystacky'
 
 
@@ -18,8 +19,8 @@ class Dice:
             results[i] = random.randint(1, Dice.dice_faces)
         return results
 
-class Player:
 
+class Player:
     def __init__(self, ai=None):
         self.score = 0
 
@@ -28,8 +29,8 @@ class Player:
 
 
 class Farkle:
-    basic_100 = 0
-    basic_50 = 4
+    basic_100 = 0  # dice number #1
+    basic_50 = 4  # dice number #5
 
     def __init__(self, players=2):
         if players < 2:
@@ -49,42 +50,46 @@ class Farkle:
     @staticmethod
     def check_roll(dice_roll):
         # TODO: Figure out what's the best way to return the most information to avoid wasting additional processing
+        roll_results = {'straight': False, 'six': False, 'five': False, 'four': False, 'two-three': False,
+                        'three-pairs': False, 'ones': 0, 'fives': 0}
         result_rolls = [0] * Dice.dice_faces
         for dice in dice_roll:
-            result_rolls[dice-1] += 1
+            result_rolls[dice - 1] += 1
         # TODO: Sort by largest number of points first to least points
         # Check for n of a kind
         pairs = 0
         triplets = 0
         for roll_count in result_rolls:
             if roll_count == 6:
-                return True
+                roll_results['six'] = True
             elif roll_count == 5:
-                return True
+                roll_results['five'] = True
             elif roll_count == 4:
-                return True
+                roll_results['four'] = True
             # Check for triplets
             elif roll_count == 3:
                 triplets += 1
-                if triplets == 2: # TODO: Find a better way to check for this
-                    return True
+                if triplets == 2:  # TODO: Find a better way to check for this
+                    roll_results['two-three'] = True
             # Check for pairs
             elif roll_count == 2:
                 pairs += 1
                 if pairs == 3:
-                    return True
+                    roll_results['three-pairs'] = True
         for i, roll_count in enumerate(result_rolls):
             if i == len(result_rolls) - 1 and roll_count == 1:
-                return True
+                roll_results['straight'] = True
             elif roll_count == 1:
                 continue
+            else:
+                return False
         # Check for non combination valid moves
-        if result_rolls[Farkle.basic_100] or result_rolls[Farkle.basic_50]:
-            return True
-        return False
+        roll_results['ones'] = result_rolls[Farkle.basic_100]
+        roll_results['fives'] = result_rolls[Farkle.basic_50]
+        return roll_results
+
 
 class TestDice(unittest.TestCase):
-
     def test_roll_dice(self):
         dice_stats = [0] * 6
         total_tests = 10000
@@ -92,23 +97,29 @@ class TestDice(unittest.TestCase):
             rolls = Dice.roll_dice()
             self.assertEqual(len(rolls), Dice.dice_faces)
             for roll in rolls:
-                dice_stats[roll-1] += 1
+                dice_stats[roll - 1] += 1
         for result in dice_stats:
-            self.assertAlmostEquals(result/float(total_tests*6), 1.0/6.0, 2)
+            self.assertAlmostEquals(result / float(total_tests * 6), 1.0 / 6.0, 2)
 
     def test_check_rolls(self):
-        straight = [1,2,3,4,5,6]
+        straight = [1, 2, 3, 4, 5, 6]
         self.assertTrue(Farkle.check_roll(straight))
         six_of_a_kind = [random.randint(1, Dice.dice_faces)] * 6
         self.assertTrue(Farkle.check_roll(six_of_a_kind))
         five_of_a_kind = [random.randint(1, Dice.dice_faces)] * 5 + [random.randint(1, Dice.dice_faces)]
         self.assertTrue(Farkle.check_roll(five_of_a_kind))
-        four_of_a_kind = [random.randint(1, Dice.dice_faces)] + [random.randint(1, Dice.dice_faces)] +[random.randint(1, Dice.dice_faces)] * 4
+        four_of_a_kind = [random.randint(1, Dice.dice_faces)] + [random.randint(1, Dice.dice_faces)] + [random.randint(
+            1, Dice.dice_faces)] * 4
         self.assertTrue(Farkle.check_roll(four_of_a_kind))
-        two_three_of_a_kind = [random.randint(1, Dice.dice_faces)]*3 + [random.randint(1, Dice.dice_faces)]*3
+        two_three_of_a_kind = [random.randint(1, Dice.dice_faces)] * 3 + [random.randint(1, Dice.dice_faces)] * 3
         self.assertTrue(Farkle.check_roll(two_three_of_a_kind))
-        three_pairs = [random.randint(1, Dice.dice_faces)]*2 + [random.randint(1, Dice.dice_faces)]*2 + [random.randint(1, Dice.dice_faces)]*2
+        three_pairs = [random.randint(1, Dice.dice_faces)] * 2 + [random.randint(1, Dice.dice_faces)] * 2 + [
+                                                                                                                random.randint(
+                                                                                                                    1,
+                                                                                                                    Dice.dice_faces)] * 2
         self.assertTrue(three_pairs)
+
+
 '''
         def check_6_of_a_kind(dice_roll):
             check = dice_roll[0]
