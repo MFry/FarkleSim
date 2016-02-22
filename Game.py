@@ -110,18 +110,20 @@ class TestDice(unittest.TestCase):
         self.assertTrue(t['six'])
         five_of_a_kind = [random.randint(1, Dice.dice_faces)] * 5 + [random.randint(1, Dice.dice_faces)]
         t = Farkle.check_roll(five_of_a_kind)
-        self.assertTrue(t['five'] and t['six'])
+        self.assertTrue(t['five'])
         four_of_a_kind = [random.randint(1, Dice.dice_faces)] + [random.randint(1, Dice.dice_faces)] + [random.randint(
             1, Dice.dice_faces)] * 4
-        t =Farkle.check_roll(four_of_a_kind)
-        self.assertTrue(t['four'] and t['five'] and t['six'])
+        t = Farkle.check_roll(four_of_a_kind)
+        self.assertTrue(t['four'])
         two_three_of_a_kind = [random.randint(1, Dice.dice_faces)] * 3 + [random.randint(1, Dice.dice_faces)] * 3
-        self.assertTrue(Farkle.check_roll(two_three_of_a_kind))
+        t = Farkle.check_roll(two_three_of_a_kind)
+        self.assertTrue(t['two-three'])
         three_pairs = [random.randint(1, Dice.dice_faces)] * 2 + [random.randint(1, Dice.dice_faces)] * 2 + [
                                                                                                                 random.randint(
                                                                                                                     1,
                                                                                                                     Dice.dice_faces)] * 2
-        self.assertTrue(three_pairs)
+        t = Farkle.check_roll(three_pairs)
+        self.assertTrue(t['three-pairs'])
 
 
 '''
