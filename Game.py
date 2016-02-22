@@ -82,7 +82,7 @@ class Farkle:
             elif roll_count == 1:
                 continue
             else:
-                return False
+                break
         # Check for non combination valid moves
         roll_results['ones'] = result_rolls[Farkle.basic_100]
         roll_results['fives'] = result_rolls[Farkle.basic_50]
@@ -103,14 +103,18 @@ class TestDice(unittest.TestCase):
 
     def test_check_rolls(self):
         straight = [1, 2, 3, 4, 5, 6]
-        self.assertTrue(Farkle.check_roll(straight))
+        t = Farkle.check_roll(straight)
+        self.assertTrue(t['straight'])
         six_of_a_kind = [random.randint(1, Dice.dice_faces)] * 6
-        self.assertTrue(Farkle.check_roll(six_of_a_kind))
+        t = Farkle.check_roll(six_of_a_kind)
+        self.assertTrue(t['six'])
         five_of_a_kind = [random.randint(1, Dice.dice_faces)] * 5 + [random.randint(1, Dice.dice_faces)]
-        self.assertTrue(Farkle.check_roll(five_of_a_kind))
+        t = Farkle.check_roll(five_of_a_kind)
+        self.assertTrue(t['five'] and t['six'])
         four_of_a_kind = [random.randint(1, Dice.dice_faces)] + [random.randint(1, Dice.dice_faces)] + [random.randint(
             1, Dice.dice_faces)] * 4
-        self.assertTrue(Farkle.check_roll(four_of_a_kind))
+        t =Farkle.check_roll(four_of_a_kind)
+        self.assertTrue(t['four'] and t['five'] and t['six'])
         two_three_of_a_kind = [random.randint(1, Dice.dice_faces)] * 3 + [random.randint(1, Dice.dice_faces)] * 3
         self.assertTrue(Farkle.check_roll(two_three_of_a_kind))
         three_pairs = [random.randint(1, Dice.dice_faces)] * 2 + [random.randint(1, Dice.dice_faces)] * 2 + [
