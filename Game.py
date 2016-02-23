@@ -125,6 +125,7 @@ class TestDice(unittest.TestCase):
         t = Farkle.check_roll(three_pairs)
         self.assertTrue(t['three-pairs'])
         total_zeros = random.randint(1, 4)
+        # TODO: Fix the list constructor to generate the list
         #four_ones = [0] * total_zeros + random.randint(1, 6) + [0] * (4 + total_zeros) + random.randint(1, 6)
         #t = Farkle.check_roll(four_ones)
         #self.assertTrue(t['four'] and t['ones'] == 4)
