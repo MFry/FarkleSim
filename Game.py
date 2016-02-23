@@ -62,17 +62,17 @@ class Farkle:
         for roll_count in result_rolls:
             if roll_count == 6:
                 roll_results['six'] = True
-            elif roll_count == 5:
+            if roll_count == 5:
                 roll_results['five'] = True
-            elif roll_count == 4:
+            if roll_count == 4:
                 roll_results['four'] = True
             # Check for triplets
-            elif roll_count == 3:
+            if roll_count == 3:
                 triplets += 1
                 if triplets == 2:  # TODO: Find a better way to check for this
                     roll_results['two-three'] = True
             # Check for pairs
-            elif roll_count == 2:
+            if roll_count == 2:
                 pairs += 1
                 if pairs == 3:
                     roll_results['three-pairs'] = True
@@ -124,7 +124,10 @@ class TestDice(unittest.TestCase):
                                                                                                                     Dice.dice_faces)] * 2
         t = Farkle.check_roll(three_pairs)
         self.assertTrue(t['three-pairs'])
-
+        total_zeros = random.randint(1, 4)
+        #four_ones = [0] * total_zeros + random.randint(1, 6) + [0] * (4 + total_zeros) + random.randint(1, 6)
+        #t = Farkle.check_roll(four_ones)
+        #self.assertTrue(t['four'] and t['ones'] == 4)
 
 '''
         def check_6_of_a_kind(dice_roll):
