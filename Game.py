@@ -62,17 +62,17 @@ class Farkle:
         for roll_count in result_rolls:
             if roll_count == 6:
                 roll_results['six'] = True
-            if roll_count == 5:
+            if roll_count >= 5:
                 roll_results['five'] = True
-            if roll_count == 4:
+            if roll_count >= 4:
                 roll_results['four'] = True
             # Check for triplets
-            if roll_count == 3:
+            if roll_count >= 3:
                 triplets += 1
                 if triplets == 2:  # TODO: Find a better way to check for this
                     roll_results['two-three'] = True
             # Check for pairs
-            if roll_count == 2:
+            if roll_count >= 2:
                 pairs += 1
                 if pairs == 3:
                     roll_results['three-pairs'] = True
@@ -110,25 +110,25 @@ class TestDice(unittest.TestCase):
         self.assertTrue(t['six'])
         five_of_a_kind = [random.randint(1, Dice.dice_faces)] * 5 + [random.randint(1, Dice.dice_faces)]
         t = Farkle.check_roll(five_of_a_kind)
-        self.assertTrue(t['five'])
+        self.assertTrue(t['five'], msg='test {} failed with dictionary {}'.format(five_of_a_kind, t))
         four_of_a_kind = [random.randint(1, Dice.dice_faces)] + [random.randint(1, Dice.dice_faces)] + [random.randint(
             1, Dice.dice_faces)] * 4
         t = Farkle.check_roll(four_of_a_kind)
-        self.assertTrue(t['four'])
+        self.assertTrue(t['four'], msg='test {} failed with dictionary {}'.format(four_of_a_kind, t))
         two_three_of_a_kind = [random.randint(1, Dice.dice_faces)] * 3 + [random.randint(1, Dice.dice_faces)] * 3
         t = Farkle.check_roll(two_three_of_a_kind)
-        self.assertTrue(t['two-three'])
+        self.assertTrue(t['two-three'], msg='test {} failed with dictionary {}'.format(two_three_of_a_kind, t))
         three_pairs = [random.randint(1, Dice.dice_faces)] * 2 + [random.randint(1, Dice.dice_faces)] * 2 + [
                                                                                                                 random.randint(
                                                                                                                     1,
                                                                                                                     Dice.dice_faces)] * 2
         t = Farkle.check_roll(three_pairs)
-        self.assertTrue(t['three-pairs'])
+        self.assertTrue(t['three-pairs'], msg='test {} failed with dictionary {}'.format(three_pairs, t))
         total_zeros = random.randint(1, 4)
         # TODO: Fix the list constructor to generate the list
-        #four_ones = [0] * total_zeros + random.randint(1, 6) + [0] * (4 + total_zeros) + random.randint(1, 6)
-        #t = Farkle.check_roll(four_ones)
-        #self.assertTrue(t['four'] and t['ones'] == 4)
+        four_ones = [1] * total_zeros + [random.randint(1, 6)] + [1] * (4 - total_zeros) + [random.randint(1, 6)]
+        t = Farkle.check_roll(four_ones)
+        self.assertTrue(t['four'] and t['ones'] >= 2, msg='test {} failed with dictionary {}'.format(four_ones, t))
 
 '''
         def check_6_of_a_kind(dice_roll):
